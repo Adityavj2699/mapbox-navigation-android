@@ -1,4 +1,4 @@
-package com.mapbox.services.android.navigation.v5.navigation
+package com.mapbox.navigation.route.offboard
 
 import android.content.Context
 import androidx.annotation.FloatRange
@@ -116,7 +116,8 @@ internal constructor(
         constructor() : this(MapboxDirections.builder()) {}
 
         init {
-            this.eventListener = EVENT_LISTENER
+            this.eventListener =
+                EVENT_LISTENER
         }
 
         /**

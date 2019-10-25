@@ -50,7 +50,6 @@ class MapboxOffboardRouter(private val routeBuilder: NavigationRoute.Builder) : 
     }
 
     override fun getRoute(origin: Point, waypoints: List<Point>, listener: Router.RouteListener) {
-
     }
 
     override fun cancel() {
