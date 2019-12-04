@@ -21,6 +21,7 @@ import com.mapbox.navigation.base.route.model.Route
 import com.mapbox.navigation.directions.session.DirectionsSession
 import com.mapbox.navigation.module.NavigationModuleProvider
 import com.mapbox.navigation.navigator.MapboxNativeNavigator
+import com.mapbox.navigation.route.onboard.model.Config
 import com.mapbox.navigation.trip.notification.NavigationNotificationProvider
 import com.mapbox.navigation.trip.service.TripService
 import com.mapbox.navigation.trip.session.TripSession
@@ -47,6 +48,8 @@ class NavigationController {
     private val directionsSession: DirectionsSession
     private val tripService: TripService
     private val tripSession: TripSession
+
+    private val config = Config("tilePath")
 
     constructor(
         context: Context,
@@ -116,7 +119,9 @@ class NavigationController {
                 Context::class.java to context
             )
             OnboardRouter -> arrayOf(
-                MapboxNativeNavigator::class.java to navigator
+                MapboxNativeNavigator::class.java to navigator,
+                String::class.java to "token",
+                Config::class.java to config
             )
             DirectionsSessionModule -> throw NotImplementedError() // going to be removed when next base version
             TripNotificationModule -> arrayOf(
