@@ -41,7 +41,7 @@ constructor(
          * Build a new [NavigationRoute] object with the proper navigation parameters already setup.
          *
          * @return a [Builder] object for creating this object
-         * @since 0.5.0
+         * @since 1.0
          */
         @JvmStatic
         fun builder(context: Context): Builder =
@@ -68,7 +68,7 @@ constructor(
      * and allowing you to perform additional functions on this [NavigationRoute] class.
      *
      * @return cloned call
-     * @since 1.0.0
+     * @since 1.0
      */
     val call: Call<DirectionsResponse>
         get() = mapboxDirections.cloneCall()
@@ -78,7 +78,7 @@ constructor(
      * [Callback] must be passed into the method to handle both the response and failure.
      *
      * @param callback a RetroFit callback which contains an onResponse and onFailure
-     * @since 0.5.0
+     * @since 1.0
      */
     fun getRoute(callback: Callback<DirectionsResponse>) {
         mapboxDirections.enqueueCall(callback)
@@ -105,7 +105,7 @@ constructor(
      * reflect your users use-case.
      *
      *
-     * @since 0.5.0
+     * @since 1.0
      */
     class Builder internal constructor(private val directionsBuilder: MapboxDirections.Builder) {
         private val eventListener: NavigationRouteEventListener
@@ -131,7 +131,7 @@ constructor(
          *
          * @param profile required to be one of the String values found in the [ProfileCriteria]
          * @return this builder for chaining options together
-         * @since 0.5.0
+         * @since 1.0
          */
         internal fun profile(@DirectionsCriteria.ProfileCriteria profile: String): Builder {
             directionsBuilder.profile(profile)
@@ -203,7 +203,7 @@ constructor(
          *
          * @param clientAppName base package name or other simple string identifier
          * @return this builder for chaining options together
-         * @since 0.5.0
+         * @since 1.0
          */
         fun clientAppName(clientAppName: String): Builder {
             directionsBuilder.clientAppName(clientAppName)
@@ -254,20 +254,14 @@ constructor(
          *
          * @param options containing all variables for request
          * @return this builder for chaining options together
-         * @since 0.9.0
+         * @since 1.0
          */
-        fun routeOptions(options: RouteOptionsNavigation): Builder {
-            options.baseUrl?.let {
-                directionsBuilder.baseUrl(it)
-            }
+        internal fun routeOptions(options: RouteOptionsNavigation): Builder {
+            directionsBuilder.baseUrl(options.baseUrl)
 
-            options.user?.let {
-                directionsBuilder.user(it)
-            }
+            directionsBuilder.user(options.user)
 
-            options.profile?.let {
-                directionsBuilder.profile(it)
-            }
+            directionsBuilder.profile(options.profile)
 
             origin = options.origin
 
@@ -300,9 +294,7 @@ constructor(
                 }
             }
 
-            options.continueStraight?.let {
-                directionsBuilder.continueStraight(it)
-            }
+            directionsBuilder.continueStraight(options.continueStraight)
 
             options.roundaboutExits?.let {
                 directionsBuilder.roundaboutExits(it)
@@ -316,9 +308,7 @@ constructor(
                 directionsBuilder.overview(it)
             }
 
-            options.steps?.let {
-                directionsBuilder.steps(it)
-            }
+            directionsBuilder.steps(options.steps)
 
             options.annotations?.let {
                 directionsBuilder.annotations(it)
@@ -392,7 +382,7 @@ constructor(
          * settings for navigation to work correctly.
          *
          * @return a new instance of Navigation Route
-         * @since 0.5.0
+         * @since 1.0
          */
         fun build(): NavigationRoute {
             // Set the default values which the user cannot alter.
