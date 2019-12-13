@@ -13,8 +13,6 @@ import com.mapbox.geojson.Point
 import com.mapbox.navigation.base.route.model.WalkingOptionsNavigation
 import com.mapbox.navigation.utils.extensions.inferDeviceLocale
 import com.mapbox.services.android.navigation.v5.internal.accounts.SkuInterceptor
-import com.mapbox.services.android.navigation.v5.internal.navigation.NavigationRouteCallback
-import com.mapbox.services.android.navigation.v5.internal.navigation.NavigationRouteEventListener
 import com.mapbox.services.android.navigation.v5.utils.extensions.getUnitTypeForLocale
 import com.mapbox.services.android.navigation.v5.utils.extensions.mapToWalkingOptions
 import java.util.Locale
