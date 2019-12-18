@@ -120,7 +120,6 @@ class NavigationController {
             )
             OnboardRouter -> arrayOf(
                 MapboxNativeNavigator::class.java to navigator,
-                String::class.java to "token",
                 Config::class.java to config
             )
             DirectionsSessionModule -> throw NotImplementedError() // going to be removed when next base version
