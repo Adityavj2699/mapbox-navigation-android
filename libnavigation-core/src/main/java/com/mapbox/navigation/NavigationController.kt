@@ -1,6 +1,5 @@
 package com.mapbox.navigation
 
-import android.content.Context
 import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
@@ -24,13 +23,14 @@ import com.mapbox.navigation.base.trip.TripSession
 import com.mapbox.navigation.directions.session.DirectionsSession
 import com.mapbox.navigation.module.NavigationModuleProvider
 import com.mapbox.navigation.navigator.MapboxNativeNavigator
+import com.mapbox.navigation.route.offboard.router.NavigationOffboardRoute
 
 class NavigationController {
 
-    private val context: Context
     private val navigator: MapboxNativeNavigator
     private val locationEngine: LocationEngine
     private val locationEngineRequest: LocationEngineRequest
+    private val navigationOffboardRoute: NavigationOffboardRoute
 
     private val mainHandler: Handler by lazy { Handler(Looper.getMainLooper()) }
     private val workerHandler: Handler by lazy { Handler(workerThread.looper) }
@@ -42,16 +42,22 @@ class NavigationController {
     private val directionsSession: DirectionsSession
     private val tripSession: TripSession
 
-    constructor(context: Context, navigator: MapboxNativeNavigator, locationEngine: LocationEngine, locationEngineRequest: LocationEngineRequest) {
-        this.context = context
+    constructor(
+        navigator: MapboxNativeNavigator,
+        locationEngine: LocationEngine,
+        locationEngineRequest: LocationEngineRequest,
+        navigationOffboardRoute: NavigationOffboardRoute
+    ) {
         this.navigator = navigator
         this.locationEngine = locationEngine
         this.locationEngineRequest = locationEngineRequest
+        this.navigationOffboardRoute = navigationOffboardRoute
 
         logger = NavigationModuleProvider.createModule(LoggerModule, ::paramsProvider)
         directionsSession = NavigationComponentProvider.createDirectionsSession(
             NavigationModuleProvider.createModule(HybridRouter, ::paramsProvider),
-            routeObserver)
+            routeObserver
+        )
         tripSession = NavigationModuleProvider.createModule(TripSessionModule, ::paramsProvider)
     }
 
@@ -85,7 +91,7 @@ class NavigationController {
                 )
             )
             OffboardRouter -> arrayOf(
-                Context::class.java to context
+                NavigationOffboardRoute::class.java to navigationOffboardRoute
             )
             OnboardRouter -> arrayOf(
                 MapboxNativeNavigator::class.java to navigator

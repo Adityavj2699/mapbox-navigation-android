@@ -123,7 +123,7 @@ public class OffboardRouterActivityJava extends AppCompatActivity implements
   private void findRoute() {
     if (origin != null && destination != null) {
       if (offboardRouter == null) {
-        offboardRouter = new MapboxOffboardRouter(this);
+        offboardRouter = new MapboxOffboardRouter(Utils.getMapboxAccessToken(this), this);
       } else {
         offboardRouter.cancel();
       }
