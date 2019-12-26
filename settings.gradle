@@ -13,4 +13,5 @@ include ':app',
         ':libnavigation-util',
         ':libtrip-session',
         ':libnavigation-core',
-        ':libnavigation-resource'
+        ':libnavigation-resource',
+        ':libtesting-ui'

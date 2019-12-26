@@ -46,7 +46,9 @@ ext {
       firebaseCore              : '16.0.7',
       crashlytics               : '2.9.9',
       multidex                  : '2.0.0',
-      json                      : '20180813'
+      json                      : '20180813',
+      uiautomator               : '2.2.0',
+      junitExt                  : '1.1.1'
   ]
 
   dependenciesList = [
@@ -107,6 +109,8 @@ ext {
       testEspressoCore          : "androidx.test.espresso:espresso-core:${version.espressoVersion}",
       testEspressoContrib       : "androidx.test.espresso:espresso-contrib:${version.espressoVersion}",
       testEspressoIntents       : "androidx.test.espresso:espresso-intents:${version.espressoVersion}",
+      uiautomator               : "androidx.test.uiautomator:uiautomator:${version.uiautomator}",
+      junitExt                  : "androidx.test.ext:junit:${version.junitExt}",
 
       // unit test
       junit                     : "junit:junit:${version.junit}",
